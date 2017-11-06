@@ -6,4 +6,5 @@ verify_ssl = true
 
 [dev-packages]
 
-django = "*"
+django = ">=1.11"
+coverage = "*"

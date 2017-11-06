@@ -8,7 +8,7 @@ def read(filename):
 
 setup(
     name='djext',
-    version='0.0.1-a1',
+    version='0.0.1-a2',
     description='Quick tools for Django',
     author='Yehuda Deutsch',
     author_email='yeh@uda.co.il',
@@ -34,4 +34,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Software Development :: Libraries',
     ],
+    extras_require={
+        'dev': ['django'],
+        'test': ['coverage'],
+    },
+    python_requires='>=3.5',
 )
