@@ -65,12 +65,12 @@ class JsonResponseRedirectBase(JsonResponse):
         }
 
 
-class JsonResponseRedirect(JsonResponseRedirectBase):
-    status_code = 302
-
-
 class JsonResponsePermanentRedirect(JsonResponseRedirectBase):
     status_code = 301
+
+
+class JsonResponseRedirect(JsonResponseRedirectBase):
+    status_code = 302
 
 
 class JsonResponseBadRequest(JsonResponse):
@@ -81,12 +81,12 @@ class JsonResponseUnauthorized(JsonResponse):
     status_code = 401
 
 
-class JsonResponseNotFound(JsonResponse):
-    status_code = 404
-
-
 class JsonResponseForbidden(JsonResponse):
     status_code = 403
+
+
+class JsonResponseNotFound(JsonResponse):
+    status_code = 404
 
 
 class JsonResponseNotAllowed(JsonResponse):
