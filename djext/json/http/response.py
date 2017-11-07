@@ -21,12 +21,14 @@ class JsonResponse(HttpResponse):
     :param json_dumps_params: A dictionary of kwargs passed to json.dumps().
     """
 
-    def __init__(self, data, encoder=DjangoJSONEncoder, safe=True,
+    def __init__(self, data=None, encoder=DjangoJSONEncoder, safe=True,
                  json_dumps_params=None, include_status=False,
                  always_http_ok=False, **kwargs):
         kwargs.setdefault('content_type', 'application/json')
         super().__init__(**kwargs)
 
+        if not data:
+            data = {}
         if safe and not isinstance(data, dict):
             raise TypeError(
                 'In order to allow non-dict objects to be serialized set the '
