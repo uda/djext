@@ -27,7 +27,7 @@ class JsonResponse(HttpResponse):
         kwargs.setdefault('content_type', 'application/json')
         super().__init__(**kwargs)
 
-        if not data:
+        if data is None:
             data = {}
         if safe and not isinstance(data, dict):
             raise TypeError(
