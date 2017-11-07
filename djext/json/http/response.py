@@ -1,6 +1,7 @@
 import json
 from urllib.parse import urlparse
 
+from django.conf import settings
 from django.core.exceptions import DisallowedRedirect
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponse
@@ -22,8 +23,8 @@ class JsonResponse(HttpResponse):
     """
 
     def __init__(self, data=None, encoder=DjangoJSONEncoder, safe=True,
-                 json_dumps_params=None, include_status=False,
-                 always_http_ok=False, **kwargs):
+                 json_dumps_params=None, include_status=None,
+                 always_http_ok=None, **kwargs):
         kwargs.setdefault('content_type', 'application/json')
         super().__init__(**kwargs)
 
@@ -34,6 +35,10 @@ class JsonResponse(HttpResponse):
                 'In order to allow non-dict objects to be serialized set the '
                 'safe parameter to False.'
             )
+        if include_status is None:
+            include_status = getattr(settings, 'JSON_INCLUDE_STATUS', False)
+        if always_http_ok is None:
+            always_http_ok = getattr(settings, 'JSON_ALWAYS_HTTP_OK', False)
         if json_dumps_params is None:
             json_dumps_params = {}
         if isinstance(data, dict) and include_status:
