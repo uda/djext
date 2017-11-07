@@ -8,7 +8,7 @@ def read(filename):
 
 setup(
     name='djext',
-    version='0.0.4-a1',
+    version='0.0.5a1',
     description='Quick tools for Django',
     author='Yehuda Deutsch',
     author_email='yeh@uda.co.il',
@@ -17,6 +17,7 @@ setup(
     url='https://gitlab.com/uda/djext',
     keywords='django http wsgi quick tools models forms views templates templatetags',
     packages=find_packages(),
+    include_package_data=True,
     long_description=read('README.rst'),
     classifiers=[
         'Development Status :: 3 - Alpha',
