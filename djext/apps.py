@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.handlers.wsgi import WSGIHandler, WSGIRequest
 
-from .http.request import ExtendedWSGIRequest
+from .http.wsgi import ExtendedWSGIRequest
 
 
 class DjangoExtendedConfig(AppConfig):
