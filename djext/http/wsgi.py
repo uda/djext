@@ -2,6 +2,7 @@ import json
 import re
 
 from django.core.handlers.wsgi import WSGIRequest
+from django.utils.encoding import force_text
 
 
 class ExtendedWSGIRequest(WSGIRequest):
@@ -17,7 +18,7 @@ class ExtendedWSGIRequest(WSGIRequest):
 
         if re.match(self.json_mime_type_regex, self.content_type):
             try:
-                self._json = json.loads(self._body)
+                self._json = json.loads(force_text(self._body))
             except:
                 self._post_parse_error = True
 
