@@ -9,7 +9,7 @@ class ExtendedWSGIRequest(WSGIRequest):
 
     def _load_json(self):
         self._json = {}
-        if self.method != 'POST':
+        if self.method not in ['POST', 'PUT', 'PATCH']:
             return
         if self._read_started and not hasattr(self, '_body'):
             self._post_parse_error = True
