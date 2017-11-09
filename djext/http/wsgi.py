@@ -18,7 +18,7 @@ class ExtendedWSGIRequest(WSGIRequest):
 
         if re.match(self.json_mime_type_regex, self.content_type):
             try:
-                self._json = json.loads(force_text(self._body))
+                self._json = json.loads(force_text(self.body))
             except:
                 self._post_parse_error = True
 
