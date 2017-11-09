@@ -8,7 +8,7 @@ def read(filename):
 
 setup(
     name='djext',
-    version='0.1.0',
+    version='0.1.1',
     description='Quick tools for Django',
     author='Yehuda Deutsch',
     author_email='yeh@uda.co.il',
@@ -20,7 +20,7 @@ setup(
     include_package_data=True,
     long_description=read('README.rst'),
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Framework :: Django :: 1.11',
