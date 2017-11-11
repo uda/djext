@@ -1,5 +1,8 @@
 import os
+
 from setuptools import setup, find_packages
+
+import djext
 
 
 def read(filename):
@@ -8,7 +11,7 @@ def read(filename):
 
 setup(
     name='djext',
-    version='0.1.4',
+    version=djext.__version__,
     description='Quick tools for Django',
     author='Yehuda Deutsch',
     author_email='yeh@uda.co.il',
