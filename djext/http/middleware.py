@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseServerError
 from django.utils.deprecation import MiddlewareMixin
 
-from djext.http.exceptions import HttpError
+from .exceptions import HttpError
 
 
 class ExceptionResponseMiddleware(MiddlewareMixin):
