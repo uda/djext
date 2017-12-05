@@ -1,4 +1,5 @@
-from django.http import HttpResponse, HttpResponseServerError
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseServerError, Http404
 from django.utils.deprecation import MiddlewareMixin
 
 from .exceptions import HttpError
@@ -9,5 +10,5 @@ class ExceptionResponseMiddleware(MiddlewareMixin):
         if isinstance(exception, HttpError):
             return HttpResponse(
                 status=exception.status_code, reason=exception.reason)
-        else:
+        elif not isinstance(exception, Http404) and not settings.DEBUG:
             return HttpResponseServerError()
