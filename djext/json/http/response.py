@@ -39,11 +39,16 @@ class JsonResponse(HttpResponse):
             include_status = getattr(settings, 'JSON_INCLUDE_STATUS', False)
         if always_http_ok is None:
             always_http_ok = getattr(settings, 'JSON_ALWAYS_HTTP_OK', False)
+        status_field = getattr(settings, 'JSON_STATUS_FIELD', 'status')
+        reason_field = getattr(settings, 'JSON_REASON_FIELD', 'reason')
+        reason_on_error = getattr(settings, 'JSON_REASON_ON_ERROR', True)
         if json_dumps_params is None:
             json_dumps_params = {}
-        if isinstance(data, dict) and include_status:
-            data.setdefault('status', self.status_code)
-            data.setdefault('reason', self.reason_phrase)
+        if isinstance(data, dict):
+            if include_status:
+                data.setdefault(status_field, self.status_code)
+            if include_status or (self.status_code != 200 and reason_on_error):
+                data.setdefault(reason_field, self.reason_phrase)
         if always_http_ok:
             self.status_code = 200
         self.content = json.dumps(data, cls=encoder, **json_dumps_params)
