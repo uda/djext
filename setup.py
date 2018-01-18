@@ -41,6 +41,7 @@ setup(
     extras_require={
         'dev': ['django'],
         'test': ['coverage'],
+        'json': ['jsonschema'],
     },
     python_requires='>=3.5',
 )

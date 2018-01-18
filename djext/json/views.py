@@ -1,3 +1,6 @@
+from jsonschema import Draft4Validator, Draft3Validator
+from jsonschema.validators import validator_for
+
 from .http.response import JsonResponseBadRequest
 
 
@@ -15,3 +18,24 @@ class JsonFormMixin(object):
             for field, error_list in form.errors.items()
         }
         return JsonResponseBadRequest({'errors': errors})
+
+
+class JsonSchemaPayloadMixin(object):
+    request_schema = {}
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        :param django.core.handlers.wsgi.WSGIRequest request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        if request.method in ['POST', 'PUT', 'PATCH']:
+            if self.request_schema:
+                validator_cls = validator_for(self.request_schema)
+                validator = validator_cls(self.request_schema)  # type: Draft4Validator or Draft3Validator
+                errors = validator.iter_errors(request.json)
+                if errors:
+                    return JsonResponseBadRequest({'errors': errors})
+        return super().dispatch(request, *args, **kwargs)
+
