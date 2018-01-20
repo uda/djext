@@ -4,7 +4,7 @@ from django.template import Variable, VariableDoesNotExist
 register = template.Library()
 
 
-@register.assignment_tag(name='eq')
+@register.simple_tag(name='eq')
 def equal(item1, item2):
     return item1 == item2
 
@@ -21,6 +21,6 @@ def resolve(target, lookup, default=None):
     return resolve_base(target, lookup, default)
 
 
-@register.assignment_tag(name='resolve_as')
+@register.simple_tag(name='resolve_as')
 def resolve_as(target, lookup, default=None):
     return resolve_base(target, lookup, default)

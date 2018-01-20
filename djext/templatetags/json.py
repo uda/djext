@@ -17,6 +17,6 @@ def json_encode(data, indent=None, ensure_ascii=True):
     return json_encode_base(data, indent, ensure_ascii)
 
 
-@register.assignment_tag(name='to_json')
+@register.simple_tag(name='to_json')
 def to_json(data, indent=None, ensure_ascii=True):
     return json_encode_base(data, indent, ensure_ascii)
