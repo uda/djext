@@ -18,7 +18,7 @@ class DjangoExtendedJsonConfig(AppConfig):
 
         def _load_json(_self):
             _self._json = {}
-            if _self.method not in ['POST', 'PUT', 'PATCH']:
+            if _self.method not in ('POST', 'PUT', 'PATCH'):
                 return
             if _self._read_started and not hasattr(_self, '_body'):
                 _self._post_parse_error = True

@@ -7,7 +7,7 @@ from .http.response import JsonResponseBadRequest
 class JsonFormMixin(object):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        if self.request.method in ('POST', 'PUT') and not self.request.POST \
+        if self.request.method in ('POST', 'PUT', 'PATCH') and not self.request.POST \
                 and hasattr(self.request, 'json') and self.request.json:
             kwargs['data'] = self.request.json
         return kwargs
@@ -30,7 +30,7 @@ class JsonSchemaPayloadMixin(object):
         :param kwargs:
         :return:
         """
-        if request.method in ['POST', 'PUT', 'PATCH']:
+        if request.method in ('POST', 'PUT', 'PATCH'):
             if self.request_schema:
                 validator_cls = validator_for(self.request_schema)
                 validator = validator_cls(self.request_schema)  # type: Draft4Validator or Draft3Validator
