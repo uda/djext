@@ -36,6 +36,6 @@ class JsonSchemaPayloadMixin(object):
                 validator = validator_cls(self.request_schema)  # type: Draft4Validator or Draft3Validator
                 errors = validator.iter_errors(request.json)
                 if errors:
-                    return JsonResponseBadRequest({'errors': errors})
+                    return JsonResponseBadRequest({'errors': list(errors)})
         return super().dispatch(request, *args, **kwargs)
 
