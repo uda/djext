@@ -2,8 +2,9 @@ from django.forms import (
     DateInput as BaseDateInput,
     DateTimeInput as BaseDateTimeInput,
     TimeInput as BaseTimeInput,
-    SplitDateTimeWidget as BaseSplitDateTimeWidget,
+    MultiWidget,
 )
+from django.forms.utils import to_current_timezone
 
 
 class DateInput(BaseDateInput):
@@ -22,10 +23,13 @@ class TimeInput(BaseTimeInput):
     input_type = 'time'
 
 
-class SplitDateTimeWidget(BaseSplitDateTimeWidget):
+class SplitDateTimeWidget(MultiWidget):
     """
     A widget that splits datetime input into two <input type="text"> boxes.
     """
+    supports_microseconds = False
+    template_name = 'django/forms/widgets/splitdatetime.html'
+
     def __init__(self, attrs=None, date_format=None, time_format=None, date_attrs=None, time_attrs=None):
         widgets = (
             DateInput(
@@ -38,6 +42,12 @@ class SplitDateTimeWidget(BaseSplitDateTimeWidget):
             ),
         )
         super().__init__(widgets)
+
+    def decompress(self, value):
+        if value:
+            value = to_current_timezone(value)
+            return [value.date(), value.time().replace(microsecond=0)]
+        return [None, None]
 
 
 class SplitHiddenDateTimeWidget(SplitDateTimeWidget):
