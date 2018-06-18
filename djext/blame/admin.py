@@ -23,4 +23,5 @@ class BlameBaseFormsetAdmin(object):
 
 
 class BlameBaseAdminMixin(BlameBaseAdmin, BlameBaseFormsetAdmin):
-    pass
+    exclude = ('created_by', 'created_on', 'updated_by', 'updated_on')
+    readonly_fields = ('created', 'updated')

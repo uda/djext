@@ -17,5 +17,37 @@ class BaseBlameModel(models.Model):
     updated_by = models.ForeignKey(UserModel, related_name='+', on_delete=on_delete, null=null)
     updated_on = models.DateTimeField(auto_now=True)
 
+    def get_created_by(self):
+        return str(self.created_by or '')
+
+    def get_created_on(self):
+        if self.created_on:
+            return self.created_on.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            return ''
+
+    def get_updated_by(self):
+        return str(self.updated_by or '')
+
+    def get_updated_on(self):
+        if self.updated_on:
+            return self.updated_on.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            return ''
+
+    @property
+    def created(self):
+        if self.pk:
+            return f'{self.get_created_by()} on {self.get_created_on()}'
+        else:
+            return str(None)
+
+    @property
+    def updated(self):
+        if self.pk:
+            return f'{self.get_updated_by()} on {self.get_updated_on()}'
+        else:
+            return str(None)
+
     class Meta:
         abstract = True
